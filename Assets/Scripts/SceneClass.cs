@@ -9,7 +9,7 @@ public class SceneClass : MonoBehaviour
     {
         if (Debug.isDebugBuild) {
             Debug.Log("This is a dev mode!");
-            gameObject.AddComponent<DevConsole>();
+            // gameObject.AddComponent<DevConsole>();
         }
     }
 

@@ -5,10 +5,10 @@ using UnityEngine;
 public class DevConsole : MonoBehaviour
 {
     private int count = 0;
-    private TMPro.TMP_Text logText;
+    private TMPro.TMP_Text logContent;
     void Start()
     {
-        logText = GameObject.Find("logText").GetComponent<TMPro.TMP_Text>();
+        logContent = GameObject.Find("logContent").GetComponent<TMPro.TMP_Text>();
     }
     void Update()
     {
@@ -23,11 +23,16 @@ public class DevConsole : MonoBehaviour
         Application.logMessageReceived -= LogCallBack;
     } 
     void LogCallBack(string logString, string stackTree, LogType type){
-        logText.text = $"{logText.text} [{stackTree}]  {logString} \n"; 
+        logContent.text = $"{logContent.text} {logString} \n"; 
     }
     void ShowLine(){
         count++;
         Debug.Log($"Pressed {count}");
         Cursor.visible = true;
+    }
+    public static void AcceptCommand(){
+        // if (Input.GetKeyDown(KeyCode.Return)) {
+            Debug.Log("Accepted!");
+        // }
     }
 }
