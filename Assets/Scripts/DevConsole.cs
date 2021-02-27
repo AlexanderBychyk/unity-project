@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DevConsole : MonoBehaviour
 {
-    private int count = 0;
-    private TMPro.TMP_Text logContent;
+    private TMP_InputField inputField;
+    private TMP_Text logContent;
+    
     void Start()
     {
-        logContent = GameObject.Find("logContent").GetComponent<TMPro.TMP_Text>();
+        logContent = GameObject.Find("logContent").GetComponent<TMP_Text>();
+        inputField = GameObject.Find("inputCommand").GetComponent<TMP_InputField>();
+        inputField.onSubmit.AddListener(CommandSubmited);
     }
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.BackQuote)){
-            ShowLine();
-        }
+    void Update() {
     }
     private void OnEnable() {
         Application.logMessageReceived += LogCallBack;
@@ -25,14 +25,9 @@ public class DevConsole : MonoBehaviour
     void LogCallBack(string logString, string stackTree, LogType type){
         logContent.text = $"{logContent.text} {logString} \n"; 
     }
-    void ShowLine(){
-        count++;
-        Debug.Log($"Pressed {count}");
-        Cursor.visible = true;
-    }
-    public static void AcceptCommand(){
-        // if (Input.GetKeyDown(KeyCode.Return)) {
-            Debug.Log("Accepted!");
-        // }
+    public void CommandSubmited(string text){
+        if (text.Length > 0) {
+            Debug.Log($"{text}");
+        }
     }
 }

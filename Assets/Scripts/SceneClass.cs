@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class SceneClass : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (Debug.isDebugBuild) {
-            Debug.Log("This is a dev mode!");
-            // gameObject.AddComponent<DevConsole>();
+    public GameObject devCommandPanel;
+    
+    void Update() {
+        if (Debug.isDebugBuild && Input.GetKeyDown(KeyCode.BackQuote)) {
+            if (!GameObject.Find("devCommandPanel")){
+                GameObject instance = Instantiate(devCommandPanel, new Vector3(0,0,0), Quaternion.identity);
+                instance.name = devCommandPanel.name;
+                instance.transform.SetParent(GameObject.Find("Canvas").transform, false);
+            } else {
+                Destroy(GameObject.Find("devCommandPanel"));
+            }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
